@@ -1,27 +1,19 @@
-﻿生成启动时间为 2013/2/1 0:16:28。
+﻿生成启动时间为 2/2/2013 2:55:33 PM。
      1>项目“E:\Projects\cocos2d-2.0-rc2-x-2.0.1\AngleAttack\proj.win32\AngleAttack.win32.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I. /I..\Classes /I..\..\cocos2dx /I..\..\cocos2dx\include /I..\..\cocos2dx\kazmath\include /I..\..\cocos2dx\platform\win32 /I..\..\cocos2dx\platform\third_party\win32 /I..\..\cocos2dx\platform\third_party\win32\OGLES /I..\..\ /I..\..\CocosDenshion\Include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D STRICT /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS_DEBUG /D COCOS2D_DEBUG=1 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\AppDelegate.cpp ..\Classes\CustomDraw.cpp ..\Classes\HelloWorldScene.cpp main.cpp
-         main.cpp
-         HelloWorldScene.cpp
-     1>e:\projects\cocos2d-2.0-rc2-x-2.0.1\angleattack\classes\helloworldscene.cpp(226): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
-     1>e:\projects\cocos2d-2.0-rc2-x-2.0.1\angleattack\classes\helloworldscene.cpp(234): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I. /I..\Classes /I..\..\cocos2dx /I..\..\cocos2dx\include /I..\..\cocos2dx\kazmath\include /I..\..\cocos2dx\platform\win32 /I..\..\cocos2dx\platform\third_party\win32 /I..\..\cocos2dx\platform\third_party\win32\OGLES /I..\..\ /I..\..\CocosDenshion\Include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D STRICT /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS_DEBUG /D COCOS2D_DEBUG=1 /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\CustomDraw.cpp
          CustomDraw.cpp
-     1>e:\projects\cocos2d-2.0-rc2-x-2.0.1\angleattack\classes\customdraw.cpp(34): warning C4305: “参数”: 从“double”到“GLfloat”截断
-     1>e:\projects\cocos2d-2.0-rc2-x-2.0.1\angleattack\classes\customdraw.cpp(40): warning C4305: “参数”: 从“double”到“GLfloat”截断
-         AppDelegate.cpp
-         正在生成代码...
-       ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _DEBUG /D _UNICODE /D UNICODE /l"0x0409" /IDebug.win32\ /nologo /fo"Debug.win32\AngleAttack.res" AngleAttack.rc 
+     1>e:\projects\cocos2d-2.0-rc2-x-2.0.1\angleattack\classes\customdraw.cpp(172): warning C4305: “参数”: 从“double”到“const GLfloat”截断
+     1>e:\projects\cocos2d-2.0-rc2-x-2.0.1\angleattack\classes\customdraw.cpp(196): warning C4305: “参数”: 从“double”到“const GLfloat”截断
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\\" libcocos2d.lib opengl32.lib glew32.lib libBox2d.lib libCocosDenshion.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.lib" /MACHINE:X86 Debug.win32\AngleAttack.res
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\\" libcocos2d.lib opengl32.lib glew32.lib libBox2d.lib libCocosDenshion.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.pdb" /SUBSYSTEM:WINDOWS,"5.01" /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.lib" /MACHINE:X86 Debug.win32\AngleAttack.res
          Debug.win32\AppDelegate.obj
          Debug.win32\CustomDraw.obj
          Debug.win32\HelloWorldScene.obj
          Debug.win32\main.obj
-     1>LINK : fatal error LNK1104: 无法打开文件“libBox2d.lib”
-     1>已完成生成项目“E:\Projects\cocos2d-2.0-rc2-x-2.0.1\AngleAttack\proj.win32\AngleAttack.win32.vcxproj”(Build 个目标)的操作 - 失败。
+         AngleAttack.win32.vcxproj -> E:\Projects\cocos2d-2.0-rc2-x-2.0.1\Debug.win32\AngleAttack.win32.exe
+     1>已完成生成项目“E:\Projects\cocos2d-2.0-rc2-x-2.0.1\AngleAttack\proj.win32\AngleAttack.win32.vcxproj”(Build 个目标)的操作。
 
-生成失败。
+生成成功。
 
-已用时间 00:00:08.39
+已用时间 00:00:02.57

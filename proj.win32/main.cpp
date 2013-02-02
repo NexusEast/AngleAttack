@@ -33,8 +33,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // create the application instance
     AppDelegate app;
     CCEGLView& eglView = CCEGLView::sharedOpenGLView();
-    eglView.setViewName("NexusEast");
+   eglView.setViewName("NexusEast");
     eglView.setFrameSize(854, 480);
+    //eglView.setFrameSize(1280, 720);
 	printf("=====================Init Game=====================\n");
 	printf("Video Mode = %.2fx%.2f\n",eglView.getFrameSize().width,eglView.getFrameSize().height);
 	printf("Clint Window Name:%s\n",eglView.getViewName());

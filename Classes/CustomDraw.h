@@ -6,13 +6,17 @@ class CustomDraw :
 public:
 	CustomDraw(void);
 	~CustomDraw(void);
-	void DrawLine(cocos2d::CCPoint start,cocos2d::CCPoint end,float width);
+	void DrawLine(cocos2d::CCPoint start,cocos2d::CCPoint end,float width,cocos2d::ccColor4F col4f);
 	void ClearLayer();
 	virtual void draw();
 	void CustomUpdate();
 	float angle;
 	float targetAngle;
 	cocos2d::CCPoint touchPosBegin;
+	
+	cocos2d::CCProgressTimer*	life;
+	cocos2d::CCProgressTimer*		cicle;
+	cocos2d::CCProgressTimer*		cicleAng;
 	float addPower;
 	enum GameStatus
 	{
@@ -40,6 +44,12 @@ public:
 	cocos2d::CCPoint end;
 	cocos2d::CCPoint touchPos;
 	cocos2d::CCPoint Target;
+	
+	cocos2d::CCSprite *midPointInfo;
+	cocos2d::CCSprite *digreeInfo;
+
+
+	std::string info;
 	cocos2d::CCPoint scaleDown(cocos2d::CCPoint point);
 	bool isTouched;
 	SubStatus subStatus;

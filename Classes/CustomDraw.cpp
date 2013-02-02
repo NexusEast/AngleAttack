@@ -6,18 +6,65 @@ CustomDraw::CustomDraw(void)
 {
 	angle=0;
 	targetAngle=  0;
+	info = "=====DEV MODE=====";
 	CCLayer::create();
 	isTouched = false;
 	switches[0] = CCUserDefault::sharedUserDefault()->getBoolForKey("s1",true);
 	switches[1] = CCUserDefault::sharedUserDefault()->getBoolForKey("s2",false);
 	switches[2] = CCUserDefault::sharedUserDefault()->getBoolForKey("s3",false);
-
+	life = CCProgressTimer::create(CCSprite::create("PWR.png"));
+			life->setType(CCProgressTimerType::kCCProgressTimerTypeBar);
+			life->setMidpoint(ccp(0,0)); 
+			life->setBarChangeRate(ccp(0, 1));
+			life->setAnchorPoint(CCPointZero);
+			life->setPosition(1735,8); 
+			life->setPercentage(0);
+			this->addChild(life);
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
 	curStatus = GameStatus::Init;
 	subStatus = Generate;
 	srand(time(NULL));
+		cicleAng = CCProgressTimer::create(CCSprite::create("angler.png"));
+			cicleAng->setType(CCProgressTimerType::kCCProgressTimerTypeRadial);
+			cicleAng->setMidpoint(ccp(0.5,0.5)); 
+			cicleAng->setBarChangeRate(ccp(0, 1));
+			//cicle->setAnchorPoint(CCPointZero);		 
+			cicleAng->setPositionX(CCDirector::sharedDirector()->getWinSize().width/2);
+			cicleAng->setPositionY(CCDirector::sharedDirector()->getWinSize().height/2); 
+			cicleAng->setPercentage(50);
+
+				cicle = CCProgressTimer::create(CCSprite::create("cicle.png"));
+			cicle->setType(CCProgressTimerType::kCCProgressTimerTypeRadial);
+			cicle->setMidpoint(ccp(0.5,0.5)); 
+			cicle->setBarChangeRate(ccp(0, 1));
+			//cicle->setAnchorPoint(CCPointZero);	 
+			cicle->setPositionX(1696);
+			cicle->setPositionY(143); 
+			//cicle->setPercentage(0);
+			this->addChild(cicleAng);
+			this->addChild(cicle);
+			midPointInfo  = CCSprite::create("xianduanzhongdian.png");
+			digreeInfo  = CCSprite::create("panduanjiaodu.png"); 
+		
+			CCSize winSize = CCDirector::sharedDirector()->getWinSizeInPixels();
+			winSize.width = winSize.width / HelloWorld::scaleRatio.x;
+			winSize.height = winSize.height / HelloWorld::scaleRatio.y; 
+
+			midPointInfo->setAnchorPoint(ccp(1,1));
+			midPointInfo->setPositionX(winSize.width/2);
+			midPointInfo->setPositionY(winSize.height - midPointInfo->boundingBox().size.height); 
+		
+			digreeInfo->setAnchorPoint(ccp(1,1));
+			digreeInfo->setPositionX(winSize.width/2);
+			digreeInfo->setPositionY(winSize.height - digreeInfo->boundingBox().size.height);	
+			this->addChild(digreeInfo);
+			this->addChild(midPointInfo);
+			midPointInfo->setVisible(false);
+			digreeInfo->setVisible(false);
+
 	this->setScaleX(HelloWorld::scaleRatio.x);
 	this->setScaleY(HelloWorld::scaleRatio.y);
+
 }
 
 
@@ -25,8 +72,9 @@ CustomDraw::~CustomDraw(void)
 {
 }
 
-void CustomDraw::DrawLine( cocos2d::CCPoint start,cocos2d::CCPoint end ,float width)
+void CustomDraw::DrawLine( cocos2d::CCPoint start,cocos2d::CCPoint end ,float width,cocos2d::ccColor4F col4f)
 {
+	/*
 	for(int i = 0;i<5;i++)
 	{
 
@@ -37,7 +85,8 @@ void CustomDraw::DrawLine( cocos2d::CCPoint start,cocos2d::CCPoint end ,float wi
 		CHECK_GL_ERROR_DEBUG();
 
 	}
-	ccDrawColor4F(1,1,0.3,1);
+	*/
+	ccDrawColor4F(col4f.r,col4f.g,col4f.b,col4f.a);
 	glLineWidth( width);
 	ccDrawLine(start,end);
 	CHECK_GL_ERROR_DEBUG();
@@ -57,12 +106,19 @@ void CustomDraw::draw()
  
 void CustomDraw::CustomUpdate()
 {
+//	info = "test\ntest2\ntest3";
 	switch (curStatus)
 	{
 	case Init:
+		
+		cicleAng->setVisible(false);
+		
+			midPointInfo->setVisible(false);
+			digreeInfo->setVisible(false);
 		curStatus = GetGameRandom;
 		subStatus = Generate;
 		Target = ccp(0,0);
+		touchPos = ccp(0,0);
 		break;
 	case  GetGameRandom:
 		{
@@ -93,6 +149,8 @@ void CustomDraw::CustomUpdate()
 			{
 			case CustomDraw::Generate:
 				{
+					
+			midPointInfo->setVisible(true); 
 					printf("Generating line...\n");
 					start = ccp(rand()%1029+407,rand()%755+133);
 					end = ccp(rand()%1029+407,rand()%755+133);
@@ -111,32 +169,58 @@ void CustomDraw::CustomUpdate()
 				break;
 			case CustomDraw::Play:
 				{
-					DrawLine(start,	end,5);
+					DrawLine(start,	end,5,ccc4f(0.8,0.8,0.8,1));
 					CCPoint point = ccp(touchPos.x/HelloWorld::scaleRatio.x,touchPos.y/HelloWorld::scaleRatio.y);
-					CCPoint tgt = point2line(start,	end,point);
+					CCPoint tgt = point2line(start,end,point);
+
+					ccDrawColor4B(255,0,0,255);
+
+					if(ccpDistance(Target,ccp(0,0)) != 0)
+						ccDrawPoint(tgt);
+
 					if(isTouched)
 					{
-					Target = tgt;
-						glPointSize(9);
-						ccDrawPoint(point);
-						ccDrawPoint(tgt);
-						DrawLine(point,	tgt,2);
+						Target = tgt;
+						glPointSize(5);
+						//ccDrawPoint(point);
+						//DrawLine(point,	tgt,2,ccc4f(0,1,0,0.05));
 					}
+					
+				ccDrawColor4B(0,0,255,255);
+				ccDrawPoint(ccpMidpoint(start,end));
 				}
 				break;
 
 			case CustomDraw::Submit:
 				{
-				DrawLine(start,	end,5);
+				DrawLine(start,	end,5,ccc4f(0.8,0.8,0.8,1));
 				ccDrawColor4B(255,0,0,255);
 				ccDrawPoint(Target);
 
-				
-				ccDrawColor4B(0,255,0,255);
-				ccDrawPoint(ccpMidpoint(start,end));
+				char c[128];
 				float res = ccpDistance(Target,ccpMidpoint(start,end));
-				printf("distance:%.2f\n",res);
+				printf("distance:%.f\n",res);
 				addPower = (20 - (int)res);
+				info = "Last Game Status:\n";
+				sprintf(c,"(%.f,%.f)",ccpMidpoint(start,end).x,ccpMidpoint(start,end).y);
+				info += "Middle Point = ";
+				info +=c;
+				info += "\n";
+				
+				sprintf(c,"(%.f,%.f)",Target.x,Target.y);
+				info += "Your Point = ";
+				info +=c;
+				info += "\n";
+				
+				sprintf(c,"%.f",addPower); 
+				info += "Your Score = ";
+				info +=c;
+				info += "\n";
+				
+		life->setPercentage(life->getPercentage() +  addPower);
+		
+		curStatus = Init;
+
 				}
 				break;
 			default:
@@ -165,7 +249,9 @@ void CustomDraw::CustomUpdate()
 			{
 			case CustomDraw::Generate:
 				{
-
+					 
+					digreeInfo->setVisible(true);
+					cicleAng->setVisible(true);
 					printf("Generating Angle...\n");
 					 angle = rand()%360;
 					 
@@ -184,21 +270,59 @@ void CustomDraw::CustomUpdate()
 					angg = ccpMult(angg,200);
 					angg = ccpAdd(angg,offset);
 					//printf("ang = %.2f,ang.x =% .2f,ang.y = %.2f\n",angle,angg.x,angg.y);
-					DrawLine(offset,angg,1);
-					DrawLine(offset,ccp(offset.x+200,offset.y),1);
+					cicleAng->setPosition(offset);
+					cicleAng->setRotation(90 -CC_RADIANS_TO_DEGREES(angle) );
+					cicleAng->setPercentage(CC_RADIANS_TO_DEGREES(angle)/360*100);
+					DrawLine(offset,angg,1,ccc4f(1,1,0,1));
+					DrawLine(offset,ccp(offset.x+200,offset.y),1,ccc4f(1,1,0,1));
+					CCPoint point = ccp(touchPos.x/HelloWorld::scaleRatio.x,touchPos.y/HelloWorld::scaleRatio.y);
+					cicle->setRotation(-90);
+					if(isTouched)
+						{
+						//	Lookat
+							//float tempAngle = 360 - CC_RADIANS_TO_DEGREES( ccpAngleSigned(cicle->getPosition(),point));
+							float tempAngle =Lookat(cicle->getPosition(),point) + 90  ;
+							float percentage = tempAngle/360*100;
+							printf("percentage:%.2f,tempAngle:%d\n",percentage,tempAngle);
+						//	printf("percentage:%.2f\n",percentage);
+							cicle->setPercentage(percentage); 
+							glPointSize(5);
+							ccDrawPoint(point);
+					}
 			}
 				break;
 			case CustomDraw::Submit:
 				{
-				addPower = 20 - abs(CC_RADIANS_TO_DEGREES(angle) - targetAngle*0.01*360);
+					addPower = 20 - abs(CC_RADIANS_TO_DEGREES(angle) - cicle->getPercentage()*0.01*360);
 				printf("score:%.2f\n",addPower);
 					CCPoint angg = ccpForAngle(angle); 
 					CCPoint offset = ccp(800,500);
 					angg = ccpMult(angg,200);
 					angg = ccpAdd(angg,offset);
 					//printf("ang = %.2f,ang.x =% .2f,ang.y = %.2f\n",angle,angg.x,angg.y);
-					DrawLine(offset,angg,1);
-					DrawLine(offset,ccp(offset.x+200,offset.y),1);
+					DrawLine(offset,angg,1,ccc4f(1,1,0,1));
+					DrawLine(offset,ccp(offset.x+200,offset.y),1,ccc4f(1,1,0,1));
+					
+
+					char c[100];
+					info = "Last Game Status:\n";
+				sprintf(c,"%.f",CC_RADIANS_TO_DEGREES(angle));
+				info += "Target Angle = ";
+				info +=c;
+				info += "\n";
+				
+				sprintf(c,"%.f",cicle->getPercentage()*0.01*360);
+				info += "Your Angle = ";
+				info +=c;
+				info += "\n";
+				
+				sprintf(c,"%.f",addPower); 
+				info += "Your Score = ";
+				info +=c;
+				info += "\n";
+
+		life->setPercentage(life->getPercentage() +  addPower);
+		curStatus = Init;
 			}
 				break;
 			default:
@@ -269,7 +393,7 @@ void CustomDraw::ccTouchMoved( cocos2d::CCTouch* touch, cocos2d::CCEvent* event 
 	targetAngle = ccpDistance(touchPosBegin,touchPoint)/2;
 	 if(targetAngle>100)targetAngle=100;
 	printf("targetAngle:%.2f\n",targetAngle);
-	// touchPos = touchPoint;
+	 touchPos = touchPoint;
 }
 
 void CustomDraw::ccTouchEnded( cocos2d::CCTouch* touch, cocos2d::CCEvent* event )

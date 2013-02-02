@@ -30,7 +30,6 @@ public:
 	cocos2d::CCLabelTTF* pLabel ;
 	float totalTime;
 	cocos2d::CCSprite*		BG;
-	cocos2d::CCProgressTimer*		cicle;
 	cocos2d::CCSprite*		on;
 	cocos2d::CCSprite*		off;
 	cocos2d::CCSprite*		ok;
@@ -44,7 +43,6 @@ public:
 	cocos2d::CCMenu			*confirm;
 	cocos2d::CCMenu			*setToggleMenu(const char* on,const char* off,cocos2d::CCPoint pos,cocos2d::SEL_MenuHandler callBack,int setIndex);
 	void					Update(float dt);
-	cocos2d::CCProgressTimer*	life;
 	float			power;
 
 	

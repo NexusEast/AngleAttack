@@ -90,33 +90,17 @@ bool HelloWorld::init()
 			rect->setScaleY(scaleRatio.y);
 
 
-			life = CCProgressTimer::create(CCSprite::create("PWR.png"));
-			life->setType(CCProgressTimerType::kCCProgressTimerTypeBar);
-			life->setMidpoint(ccp(0,0)); 
-			life->setBarChangeRate(ccp(0, 1));
-			life->setAnchorPoint(CCPointZero);
-			life->setPosition(ccp(1735*scaleRatio.x,8*scaleRatio.y));
-			life->setScaleX(scaleRatio.x);
-			life->setScaleY(scaleRatio.y);
-			life->setPercentage(0);
-			this->addChild(life);
+			
 			power = 0;
 
 
 
 
 
-			cicle = CCProgressTimer::create(CCSprite::create("cicle.png"));
-			cicle->setType(CCProgressTimerType::kCCProgressTimerTypeRadial);
-			cicle->setMidpoint(ccp(0.5,0.5)); 
-			cicle->setBarChangeRate(ccp(0, 1));
-			//cicle->setAnchorPoint(CCPointZero);		
-			cicle->setScaleX(scaleRatio.x);
-			cicle->setScaleY(scaleRatio.y);
-			cicle->setPositionX(1696*scaleRatio.x);
-			cicle->setPositionY(143*scaleRatio.y);
-			cicle->setPercentage(0);
-			this->addChild(cicle);
+		
+
+
+		
 
 
 
@@ -201,19 +185,24 @@ bool HelloWorld::init()
         // 2. Add a label shows "Hello World".
 
         // Create a label and initialize with string "Hello World".
-         pLabel = CCLabelTTF::create("Dev Mode", "Arial", 24);
+         pLabel = CCLabelTTF::create("=====Dev Mode=====", "Arial", 36);
+		 pLabel->setPositionX(1676.4 * scaleRatio.x);;
+		 pLabel->setPositionY(668.2 * scaleRatio.y);
+		 pLabel->setScaleX(scaleRatio.x);
+		 pLabel->setScaleY(scaleRatio.y);
+	//	 pLabel->setAnchorPoint(ccp(1,0));
+		 pLabel->setHorizontalAlignment(CCTextAlignment::kCCTextAlignmentLeft);
         CC_BREAK_IF(! pLabel);
 
         // Get window size and place the label upper. 
         CCSize size = CCDirector::sharedDirector()->getWinSize();
-        pLabel->setPosition(ccp(size.width / 2, size.height - 50));
+        //pLabel->setPosition(ccp(size.width / 2, size.height - 50));
 
         // Add the label to HelloWorld layer as a child layer.
-        this->addChild(pLabel, 1);
+        this->addChild(pLabel);
 		this->schedule(schedule_selector(HelloWorld::Update));
 		
-	//	CCLOG("x = %.2f",x);
-		pLabel->setVisible(false);
+	//	CCLOG("x = %.2f",x); 
         bRet = true;
     } while (0);
 
@@ -279,15 +268,15 @@ void HelloWorld::Update(float dt)
 	char text[10];
 	sprintf_s(text,"%.1f",totalTime);
 	timer->setString(text);
+	pLabel->setString(customDraw->info.c_str());
 	if(customDraw->curStatus == CustomDraw::GameStatus::AngelGame)
 	{
-	cicle->setPercentage(customDraw->targetAngle); 
-	float s = (customDraw->targetAngle*0.01*360);
+	
+		float s = (customDraw->cicle->getPercentage()*0.01*360);
 	sprintf_s(text,"%.1f",s);
 	angler->setString(text);
 	
 	sprintf_s(text,"%.1f",CC_RADIANS_TO_DEGREES( customDraw->angle));
-	pLabel->setString(text);
 	}
 
 }
@@ -300,19 +289,18 @@ void HelloWorld::OKCallback( CCObject* pSender )
 		if(customDraw->curStatus == CustomDraw::GameStatus::LineGame)
 		{
 		if(ccpDistance(customDraw->Target,ccp(0,0)) == 0)
-			CCMessageBox("You might missed something =]","Ehh.. ");
-		}
-		else 
 		{
-		pLabel->setVisible(true);
-		life->setPercentage(life->getPercentage() + customDraw->addPower);
+			CCMessageBox("You might missed something =]","Ehh.. ");
+		return;
 		}
+		}
+	 	//pLabel->setVisible(true);
 		customDraw->subStatus = CustomDraw::SubStatus::Submit;
 	}
 	else
 	{
 		customDraw->curStatus = CustomDraw::GameStatus::Init;
-		pLabel->setVisible(false);
+		//pLabel->setVisible(false);
 	}
 
 }
